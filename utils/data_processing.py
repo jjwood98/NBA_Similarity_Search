@@ -17,3 +17,11 @@ def weighted_player_averages(group, decay = 0.8):
     return weighted
 
 
+def merge_df(df1, df2):
+    shared = df1.columns.intersection(df2.columns)
+    print(shared)
+    print(df1.shape)
+    print(df2.shape)
+    df = df1.merge(df2, on=list(shared))
+
+    return df

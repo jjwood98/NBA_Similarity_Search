@@ -13,6 +13,7 @@ import seaborn as sns
 from utils.data_processing import normalise_stats
 from utils.nba_api_wrapper import DataCollection
 from utils.k_nearest import top_k_similar_players, compute_similarity
+from utils.data_processing import weighted_player_averages
 
 
 # ------------------------
@@ -37,6 +38,7 @@ if st.button("Find Similar Players"):
         dc = DataCollection("data/nba_stats.db")
         layer1_df = dc.get_last_n_years_stats(per_mode="PerGame")
         dc.save_to_sql(layer1_df, table_name="layer1_basic_stats")
+        layer1_df = layer1_df.groupby('PLAYER_NAME').apply(weighted_player_averages, include_groups=False).reset_index()
 
         df_normalised = normalise_stats(layer1_df)
         sim_matrix = compute_similarity(df_normalised)
