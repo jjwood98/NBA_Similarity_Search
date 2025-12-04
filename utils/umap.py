@@ -1,6 +1,7 @@
 import numpy as np
 import umap
 from sklearn.metrics.pairwise import cosine_similarity
+from utils.faiss_index import build_faiss_index
 
 
 def compute_umap_similarity(
@@ -22,7 +23,10 @@ def compute_umap_similarity(
     )
 
     embedding = umap_model.fit_transform(df_numeric.values)
+    embedding = embedding.astype('float32')
+
+    build_faiss_index(embedding)
     embedding_norm = embedding / np.linalg.norm(embedding, axis=1, keepdims=True)
     sim_matrix = cosine_similarity(embedding_norm)
 
-    return sim_matrix, embedding_norm
+    return sim_matrix, embedding_norm, embedding, umap_model

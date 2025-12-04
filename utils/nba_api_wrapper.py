@@ -31,8 +31,8 @@ class DataCollection:
         seasons = [f"{y}-{str(y + 1)[-2:]}" for y in range(season_start - n_years + 1, season_start + 1)]
 
         all_stats = []
+        print(f"Pulling {measure_type } Stats")
         for season in seasons:
-            print(f"Pulling stats for {season}...")
             try:
                 if measure_type is None:
                     df = LeagueDashPlayerStats(
@@ -50,7 +50,7 @@ class DataCollection:
                         'FG3_PCT_RANK', 'FTM_RANK', 'FTA_RANK', 'FT_PCT_RANK', 'OREB_RANK',
                         'DREB_RANK', 'REB_RANK', 'AST_RANK', 'TOV_RANK', 'STL_RANK', 'BLK_RANK',
                         'BLKA_RANK', 'PF_RANK', 'PFD_RANK', 'PTS_RANK', 'PLUS_MINUS_RANK',
-                        'NBA_FANTASY_PTS_RANK', 'DD2_RANK', 'TD3_RANK', 'WNBA_FANTASY_PTS_RANK', 'TEAM_COUNT'
+                        'NBA_FANTASY_PTS_RANK', 'DD2_RANK', 'TD3_RANK', 'WNBA_FANTASY_PTS_RANK', 'TEAM_COUNT', 'NET_RATING', 'W_PCT'
                     ]
 
                 else:
@@ -106,8 +106,8 @@ class DataCollection:
             "Spotup", "Handoff", "Cut", "OffScreen", "OffRebound", "Misc"]
 
         all_stats = []
+        print("Pulling Playtype Stats")
         for season in seasons:
-            print(f"Pulling stats for {season}...")
             season_frames = []
             try:
                 for playtype in playtpes:
@@ -173,8 +173,8 @@ class DataCollection:
                 "3 Pointers","2 Pointers","Less Than 6Ft","Less Than 10Ft","Greater Than 15Ft"]
 
         all_stats = []
+        print(f"Pulling Defensive Stats")
         for season in seasons:
-            print(f"Pulling stats for {season}...")
             season_frames = []
             try:
                 for deftype in deftypes:
