@@ -3,6 +3,8 @@ Idea: Search for NBA player and receive the 5(?) most similiar players to them.
 Commentary:
 - First drafts of the similarity search lead to Games played, Possessions etc dominating the cosine similarity.
 
+  
+```text
 [ 2025-12-02 13:05:05,950 ] 76 root - INFO - Layer 1 Top 5:
 PLAYER_NAME  SIMILARITY      top_1       top_2       top_3       top_4      top_5
 Cade Cunningham      0.9538 GP (32.6%) MIN (24.5%) PTS (12.4%) AGE (12.3%) FGA (8.1%)
@@ -18,11 +20,14 @@ Devin Booker      0.9374 POSS (99.5%) OFF_RATING (0.1%) DEF_RATING (0.1%) PACE (
 De'Aaron Fox      0.9309 POSS (99.4%) OFF_RATING (0.2%) DEF_RATING (0.1%) PACE (0.1%) PACE_PER40 (0.1%)
 Stephon Castle      0.9276 POSS (99.2%) OFF_RATING (0.2%) DEF_RATING (0.2%) PACE (0.2%) PACE_PER40 (0.1%)
 
+```
+
 - Tried implementing PCA and removing features to get a more accurate sense of comparison.
 - Dataset is made of mostly features indicating playstyles which is good for similarity comparisons, however it creates a nonlinear, multi-modal feature space and players fall into clusters.
 - PCA was a bad idea because of this, it preserves variance but doesn't help to preserve similiarity. Rare and noisy features (like off-screen shooting and cut efficiency have large variance and PCA amplifies this.
 - PCA produced some pretty non-sensical results:
 
+```text
 [ 2025-12-03 13:10:27,366 ] 68 root - INFO - Layer 3 Top 5:
           PLAYER_NAME  SIMILARITY       top_1             top_2             top_3          top_4          top_5
 Giannis Antetokounmpo      0.8473 DD2 (20.6%)       PTS (20.4%) AST_RATIO (13.6%)     FGA (9.6%)  FGA_PG (9.6%)
@@ -36,7 +41,8 @@ Giannis Antetokounmpo      0.8473 DD2 (20.6%)       PTS (20.4%) AST_RATIO (13.6%
  Ignas Brazdeikis      0.6359   Cut_FT_POSS_PCT (2.7%)    Cut_SF_POSS_PCT (2.7%)      Cut_PLUSONE_POSS_PCT (2.4%)           Cut_PPP (2.2%)     Cut_SCORE_POSS_PCT (2.2%)
       Buddy Hield      0.5828    Transition_PPP (1.9%) Transition_EFG_PCT (1.9%) Transition_SCORE_POSS_PCT (1.8%) Transition_FG_PCT (1.8%)  Spotup_SCORE_POSS_PCT (1.8%)
       Cory Joseph      0.5813   Cut_FT_POSS_PCT (1.9%)    Cut_SF_POSS_PCT (1.9%)            OffScreen_FREQ (1.8%)         Misc_FREQ (1.7%)   Cut_PLUSONE_POSS_PCT (1.6%)
-Mitchell Robinson      0.5794 Transition_FG_PCT (1.9%) Transition_EFG_PCT (1.9%) Transition_SCORE_POSS_PCT (1.9%)    Transition_PPP (1.8%) Transition_FT_POSS_PCT (1.6%)
+Mitchell Robinson      0.5794 Transition_FG_PCT (1.9%) Transition_EFG_PCT (1.9%) Transition_SCORE_POSS_PCT (1.9%)    Transition_PPP (1.8%) Transition_FT_POSS_PCT (1.6%)1
+```
 
 -The above is player comparison for Lebron James, non-PCA you get players you might expect with Double Doubles and PTS being the key drivers. With PCA you get players you would not expect to be similar to Lebron because of these noisy and rare features. It ends up grouping players by unusual and unique features.
 -Next idea was to introduce UMAP instead, which worked pretty well.
