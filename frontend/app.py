@@ -5,8 +5,8 @@ import os
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(ROOT_DIR)
 
-FAISS_PATH = os.path.join(ROOT_DIR, "faiss_index.bin")
-DF_PATH = os.path.join(ROOT_DIR, "df_original.parquet")
+FAISS_PATH = os.path.join(ROOT_DIR, "data/faiss/faiss_index.bin")
+DF_PATH = os.path.join(ROOT_DIR, "data/faiss/df_original.parquet")
 
 import streamlit as st
 import pickle

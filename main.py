@@ -20,6 +20,7 @@ def build_faiss_pipeline():
     df = merge_df(layer1_df, layer2_df)
     df = merge_df(df, layer3_df)
     df = merge_df(df, def_stats)
+    dc.save_to_sql(df, "data/nba_stats.db")
 
     print("Normalising Data...")
     df = df.groupby('PLAYER_NAME',group_keys = True).apply(weighted_player_averages, include_groups=False).reset_index()
@@ -36,11 +37,11 @@ def build_faiss_pipeline():
         "embeddings": [emb.tolist() for emb in embeddings],
     })
 
-    save_faiss_index(index, "faiss_index.bin", metadata)
-    metadata.to_parquet("faiss_index_metadata.parquet")
-    df.to_parquet("df_original.parquet")
+    save_faiss_index(index, "data/faiss/faiss_index.bin", metadata)
+    metadata.to_parquet("data/faiss/faiss_index_metadata.parquet")
+    df.to_parquet("data/faiss/df_original.parquet")
 
-    with open("umap_model.pkl", "wb") as f:
+    with open("data/umap_model.pkl", "wb") as f:
         pickle.dump(umap_model, f)
 
     print("FAISS index built and saved successfully!")

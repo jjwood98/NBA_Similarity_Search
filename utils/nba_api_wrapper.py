@@ -7,7 +7,7 @@ from utils.data_processing import combine_multi_team_rows, clean_data_features
 
 
 class DataCollection:
-    def __init__(self, db_path="nba_stats.db"):
+    def __init__(self, db_path="data/nba_stats.db"):
         """
         db_path: path to SQLite database file
         """

@@ -1,0 +1,6 @@
+numpy
+pandas
+scikit-learn
+umap-learn
+faiss-cpu
+nba_api

@@ -4,14 +4,14 @@ import pickle
 import pandas as pd
 import os
 
-def build_faiss_index(embeddings, save_path="faiss_index.index"):
+def build_faiss_index(embeddings, save_path="data/faiss_index.index"):
     dim = embeddings.shape[1]
     index = faiss.IndexFlatL2(dim)   # simple L2 distance
     index.add(embeddings)
     faiss.write_index(index, save_path)
     return index
 
-def load_faiss_index(index_path="faiss_index.index"):
+def load_faiss_index(index_path="data/faiss_index.index"):
     metadata_path = index_path.replace(".bin", "_metadata.parquet")
 
     if not os.path.exists(index_path):
@@ -30,7 +30,7 @@ def query_faiss(index, query_embedding, k=5):
     distances, indices = index.search(query_embedding, k)
     return distances, indices
 
-def save_faiss_index(index, filepath="faiss_index.bin", metadata=None):
+def save_faiss_index(index, filepath="data/faiss/faiss_index.bin", metadata=None):
     faiss.write_index(index, filepath)
 
     # Save metadata (player names, etc.)
