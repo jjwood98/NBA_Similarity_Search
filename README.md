@@ -44,12 +44,12 @@ Giannis Antetokounmpo      0.8473 DD2 (20.6%)       PTS (20.4%) AST_RATIO (13.6%
 Mitchell Robinson      0.5794 Transition_FG_PCT (1.9%) Transition_EFG_PCT (1.9%) Transition_SCORE_POSS_PCT (1.9%)    Transition_PPP (1.8%) Transition_FT_POSS_PCT (1.6%)1
 ```
 
--The above is player comparison for Lebron James, non-PCA you get players you might expect with Double Doubles and PTS being the key drivers. With PCA you get players you would not expect to be similar to Lebron because of these noisy and rare features. It ends up grouping players by unusual and unique features.
+- The above is player comparison for Lebron James, non-PCA you get players you might expect with Double Doubles and PTS being the key drivers. With PCA you get players you would not expect to be similar to Lebron because of these noisy and rare features. It ends up grouping players by unusual and unique features.
 -Next idea was to introduce UMAP instead, which worked pretty well.
 
--Addded some graphing and "interactive" features to the frontend. 
+- Addded some graphing and "interactive" features to the frontend. 
 
--Decided to have the frontend and backend running asynchronously, so when the frontend is interacted with there isn't a need to pull all the data from the NBA api every time. A FAISS Index is generated and stored and then the frontend queries that. Plan would be for the backend to run daily to update the stats and the index and then frontend would be called whenever needed.
+- Decided to have the frontend and backend running asynchronously, so when the frontend is interacted with there isn't a need to pull all the data from the NBA api every time. A FAISS Index is generated and stored and then the frontend queries that. Plan would be for the backend to run daily to update the stats and the index and then frontend would be called whenever needed.
 
 Current Limitations:
 - Runs locally on my machine, no scaling etc.
